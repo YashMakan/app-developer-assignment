@@ -37,6 +37,15 @@ dependencies:
   hive_flutter:
   flutter_app_name: ^0.1.1
   font_awesome_flutter: ^10.1.0
+  flutter_font_icons: ^2.2.4
+  dio:
+  another_flushbar: ^1.10.28
+  fluttertoast:
+  connectivity_plus: ^2.2.1
+  flutter_udid: ^2.0.0
+  visibility_detector:
+  provider:
+  url_launcher: ^6.0.20
 
 flutter_app_name:
   name: "Gamezy"
