@@ -52,7 +52,7 @@ flutter run
 
 ## 🚧 APK Installation
 
-The APK for the app can be installed by [this](https://drive.google.com/file/d/15xDl5EApcwrb6l72GIad_nJcDqjV91Bj/view?usp=sharing) link. One can also build APK by running the following command
+The APK for the app can be installed by [this](https://drive.google.com/file/d/1l8vSDx7N1Du17w-A7wEnDKXMsQRMBN9f/view?usp=sharing) link. One can also build APK by running the following command
 
 ```
 flutter build apk
