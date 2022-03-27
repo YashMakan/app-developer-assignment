@@ -31,7 +31,7 @@ Gamezy is a project developed for the technical round for **Buzz Talk**. The lay
 Download or clone this repo by using the link below:
 
 ```
-https://github.com/YashMakan/spean_flutter_interview.git
+https://github.com/YashMakan/app-developer-assignment.git
 ```
 
 **Step 2:**
