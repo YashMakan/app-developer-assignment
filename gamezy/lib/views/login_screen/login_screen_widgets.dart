@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/colors.dart';
 
 class GameListView extends StatelessWidget {
@@ -41,7 +39,7 @@ class GameListView extends StatelessWidget {
 }
 
 
-Widget customTextField({required String text, required BuildContext context, required TextEditingController controller, required setState}) {
+Widget customTextField({required String text, required BuildContext context, required TextEditingController controller, required setState, bool? obscure, onEyeClicked}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.end,
     children: [
@@ -55,9 +53,19 @@ Widget customTextField({required String text, required BuildContext context, req
           textInputAction: TextInputAction.next,
           style: TextStyle(color: CustomColors().heading.color(context)),
           controller: controller,
+          obscureText: obscure??false,
           onChanged: (text) => setState(() {}),
           decoration: InputDecoration(
             border: InputBorder.none,
+            suffixIcon: obscure!=null?IconButton(
+              icon: Icon(
+                obscure
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: Colors.pinkAccent,
+              ),
+              onPressed: onEyeClicked,
+            ):null,
             hintStyle: TextStyle(color: CustomColors().heading.color(context)),
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
@@ -79,7 +87,7 @@ Widget customTextField({required String text, required BuildContext context, req
 
 String? errorText(text) {
   if (text.isEmpty) {
-    return 'Invalid data passed';
+    return null;
   }
   if (text.length < 3) {
     return 'Too short';

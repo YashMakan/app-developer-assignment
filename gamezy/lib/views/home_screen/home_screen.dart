@@ -5,6 +5,7 @@ import 'package:gamezy/api/api.dart';
 import 'package:gamezy/database/database.dart';
 import 'package:gamezy/providers/root_provider.dart';
 import 'package:gamezy/views/splash_screen.dart';
+import 'package:gamezy/widgets/common_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../../constants/colors.dart';
@@ -54,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: CustomColors().background.color(context),
         body: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? GWidgets.loader()
             : SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
@@ -119,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Simon Baker",
+                                  Text(HiveHelper.getUserDetails().userName!,
                                       style: TextStyle(
                                           color: CustomColors()
                                               .heading
@@ -241,9 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           },
                           key: const Key('listview_end'),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                          child: const Center(child: CircularProgressIndicator(color: Colors.pinkAccent,)),
                         ),
                       )
                     ],

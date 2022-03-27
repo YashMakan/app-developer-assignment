@@ -1,8 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gamezy/models/recommeded_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../constants/colors.dart';
 
 Widget recommendedItem(BuildContext context, RecommendedTile recommendedTile) {
@@ -39,7 +39,7 @@ Widget recommendedItem(BuildContext context, RecommendedTile recommendedTile) {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                   image: DecorationImage(
-                      image: NetworkImage(recommendedTile.imageUrl),
+                      image: CachedNetworkImageProvider(recommendedTile.imageUrl),
                       fit: BoxFit.fitWidth,
                       alignment: Alignment.topCenter)),
             ),

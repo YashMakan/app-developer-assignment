@@ -10,6 +10,7 @@ import 'package:gamezy/models/user.dart';
 import 'package:gamezy/utils/global_param.dart';
 import 'package:gamezy/utils/utils.dart';
 import 'package:gamezy/views/home_screen/home_screen.dart';
+import 'package:gamezy/widgets/common_widgets.dart';
 
 import 'login_screen_widgets.dart';
 
@@ -27,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late TextEditingController controller1;
   late TextEditingController controller2;
+
+  bool _passwordHidden = true;
 
   @override
   void initState() {
@@ -59,6 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
       direction = direction == max ? min : max;
       animateToMaxMin(max, min, direction, seconds, scrollController);
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController1.dispose();
+    _scrollController2.dispose();
+    _scrollController3.dispose();
+    super.dispose();
   }
 
   @override
@@ -177,6 +188,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: "password",
                     context: context,
                     controller: controller2,
+                    obscure: _passwordHidden,
+                    onEyeClicked: () {
+                      setState(() {
+                        _passwordHidden = !_passwordHidden;
+                      });
+                    },
                     setState: setState),
                 const SizedBox(
                   height: 30,
@@ -197,25 +214,42 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  onSubmitClicked()async {
-    if(isClickable()){
-      User? user = await Api.loginUser(username: controller1.text, password: controller2.text, context: context, uId: GlobalParam().udId);
-      if(user?.cuId!=null){
+  onSubmitClicked() async {
+    if (isClickable()) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return WillPopScope(
+                child: GWidgets.loader(),
+                onWillPop: () {
+                  return Future.value(false);
+                });
+          });
+      User? user = await Api.loginUser(
+          username: controller1.text,
+          password: controller2.text,
+          context: context,
+          uId: GlobalParam().udId);
+      Navigator.pop(context);
+      if (user?.cuId != null) {
         HiveHelper.updateUserDetails(user);
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
-      }else{
-        Utils.customFlushBar(context, ToastType.error, "Contact admin to create account");
+      } else {
+        Utils.customFlushBar(
+            context, ToastType.error, "Contact admin to create account");
       }
-    }else{
+    } else {
       Utils.customFlushBar(context, ToastType.warning, "Invalid data passed");
     }
   }
 
   bool isClickable() =>
       errorText(controller1.text) == null &&
-      errorText(controller2.text) == null;
+      errorText(controller2.text) == null &&
+      controller1.text.isNotEmpty &&
+      controller2.text.isNotEmpty;
 }

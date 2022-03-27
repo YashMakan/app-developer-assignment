@@ -23,9 +23,6 @@ class Api {
         .then((response) {
       if (response['status'] == 200) {
         user = User.fromJson({'user_name': username, 'user_password': password, 'cuid': uId});
-      } else {
-        Utils.customFlushBar(
-            context, ToastType.information, response['message']);
       }
     });
     return user;
